@@ -101,6 +101,6 @@ except smtplib.SMTPException:
    sys.exit("Error")
     
 
-
+##NOTE THIS PROGRAM WON'T WORKE PROBERLY ON UNIX, BECAUSE THERE IS A DIFFRENCE IN THE .TXT FORMAT 
 
     
