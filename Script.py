@@ -65,35 +65,38 @@ try:
         recipantName = lines[x+1]  #get the name related to the e-mail address from the sheet
         
         #START Creating a massage to send
-        msg = MIMEMultipart('alternative')      #Choose alternative for the mail extension to mix between html and text
-        msg['Subject'] = 'AutoMatedMailSender'  #Set the Subject this method will set it automaticaly to the header
-        msg['From'] = 'IT Department ASURT'     #The From attribute will show in the lable of the E-mail
-        msg['To'] = toAddress                   #The To attribute will appear to the recipant
-        
-        #Creating the TEXT and the HTML part of the massage
-        text = "Hi this is an Automated mail from ASURT send to %s"%recipantName                   
-        html = """                                                                    
-        <html>
-          <head></head>
-          <body>
-            <p>Hi! %s<br>
-               This is an Automated e-mail<br>
-               please don't replay 
-            </p>
-          </body>
-        </html>
-        """%(recipantName)
-        #Define the type of each part
-        part1 = MIMEText(text, 'plain')   
-        part2 = MIMEText(html, 'html')
-        msg.attach(part1)
-        msg.attach(part2)
-        massage = msg.as_string()
-        #FINISH Creating massage to send
-        sendEmail()
-        print "Mail(",i,")SENT SUCCSSESFULLY to:\n",toAddress,"Recipant name:",recipantName,str((i*2.0/numberOfLines)*100),'%'
-        x = x +2
-        i = i +1
+        try:
+            msg = MIMEMultipart('alternative')      #Choose alternative for the mail extension to mix between html and text
+            msg['Subject'] = 'AutoMatedMailSender'  #Set the Subject this method will set it automaticaly to the header
+            msg['From'] = 'IT Department ASURT'     #The From attribute will show in the lable of the E-mail
+            msg['To'] = toAddress                   #The To attribute will appear to the recipant
+
+            #Creating the TEXT and the HTML part of the massage
+            text = "Hi this is an Automated mail from ASURT send to %s"%recipantName                   
+            html = """                                                                    
+            <html>
+              <head></head>
+              <body>
+                <p>Hi! %s<br>
+                   This is an Automated e-mail<br>
+                   please don't replay 
+                </p>
+              </body>
+            </html>
+            """%(recipantName)
+            #Define the type of each part
+            part1 = MIMEText(text, 'plain')   
+            part2 = MIMEText(html, 'html')
+            msg.attach(part1)
+            msg.attach(part2)
+            massage = msg.as_string()
+            #FINISH Creating massage to send
+            sendEmail()
+            print "Mail(",i,")SENT SUCCSSESFULLY to:\n",toAddress,"Recipant name:",recipantName,str(round(((i*2.0/numberOfLines)*100),2)),'%'
+            x = x +2
+            i = i +1
+        except:
+            print"---ERROR---\nHas not been sent",toAddress
     print "DONE 100%"
         
 except smtplib.SMTPException:
